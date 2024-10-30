@@ -25,6 +25,12 @@
     "name": "Join Discord",
     "url": "https://ronix.studio/discord"
   },
+  "tabs": [
+    {
+      "name": "Terms of Services",
+      "url": "terms-of-services"
+    }
+  ],
   "anchors": [
     {
       "name": "Website",
