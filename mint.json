@@ -34,7 +34,7 @@
   "anchors": [
     {
       "name": "Website",
-      "icon": "globe-pointer",
+      "icon": "globe",
       "url": "https://mintlify.com/docs"
     },
     {
