@@ -1,64 +1,62 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Starter Kit",
+  "name": "Doscumentation",
   "logo": {
     "dark": "/logo/dark.svg",
     "light": "/logo/light.svg"
   },
   "favicon": "/favicon.svg",
   "colors": {
-    "primary": "#0D9373",
-    "light": "#07C983",
-    "dark": "#0D9373",
+    "primary": "#5312e0",
+    "light": "#601feb",
+    "dark": "#5312e0",
     "anchors": {
-      "from": "#0D9373",
-      "to": "#07C983"
+      "from": "#5312e0",
+      "to": "#601feb"
     }
   },
   "topbarLinks": [
     {
-      "name": "Support",
-      "url": "mailto:hi@mintlify.com"
+      "name": "Store",
+      "url": "https://builtbybit.com/creators/ronix-studios.183719"
     }
   ],
   "topbarCtaButton": {
-    "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
+    "name": "Join Discord",
+    "url": "https://ronix.studio/discord"
   },
   "tabs": [
     {
-      "name": "API Reference",
-      "url": "api-reference"
+      "name": "",
+      "url": ""
     }
   ],
   "anchors": [
     {
       "name": "Website",
       "icon": "globe",
-      "url": "https://mintlify.com/docs"
+      "url": "https://ronix.studio"
     },
     {
-      "name": "Community",
-      "icon": "slack",
-      "url": "https://mintlify.com/community"
+      "name": "Join Community",
+      "icon": "discord",
+      "url": "https://ronix.studio/discord"
     },
     {
-      "name": "Blog",
-      "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
+      "name": "Store",
+      "icon": "store",
+      "url": "https://builtbybit.com/creators/ronix-studios.183719"
     }
   ],
   "navigation": [
     {
-      "group": "Get Started",
+      "group": "👋 Welcome",
       "pages": [
-        "introduction",
-        "quickstart",
-        "development"
+        "introduction"
       ]
     },
     {
-      "group": "Essentials",
+      "group": "📦 Products",
       "pages": [
         "essentials/markdown",
         "essentials/code",
