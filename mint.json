@@ -23,7 +23,7 @@
   ],
   "topbarCtaButton": {
     "name": "Join Discord",
-    "url": "https://ronix.studio/discord"
+    "url": "https://ronix.studio/discord/"
   },
   "tabs": [
     {
@@ -40,12 +40,17 @@
     {
       "name": "Join Community",
       "icon": "discord",
-      "url": "https://ronix.studio/discord"
+      "url": "https://ronix.studio/discord/"
     },
     {
-      "name": "Store",
-      "icon": "store",
+      "name": "BuiltByBit",
+      "icon": "cube",
       "url": "https://builtbybit.com/creators/ronix-studios.183719"
+    },
+    {
+      "name": "Polymart",
+      "icon": "p",
+      "url": "https://polymart.org/user/ronixstudios.22749"
     }
   ],
   "navigation": [
@@ -68,25 +73,10 @@
         "products/cubebattlepass",
         "products/cubejobs"
       ]
-    },
-    {
-      "group": "API Documentation",
-      "pages": [
-        "api-reference/introduction"
-      ]
-    },
-    {
-      "group": "Endpoint Examples",
-      "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
-      ]
     }
   ],
   "footerSocials": {
-    "x": "https://x.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://linkedin.com/company/mintlify"
+    "behance": "https://www.behance.net/ronixstudios",
+    "github": "https://github.com/ronixstudios"
   }
 }
