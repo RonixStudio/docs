@@ -60,11 +60,13 @@
       "group": "📦 Products",
       "pages": [
         "products/cubeshop",
-        "products/code",
-        "products/images",
-        "products/settings",
-        "products/navigation",
-        "products/reusable-snippets"
+        "products/cubeprefixes",
+        "products/cuberewards",
+        "products/shopui",
+        "products/cubeicons",
+        "products/cubeplayerwarps",
+        "cubebattlepass",
+        "cubejobs"
       ]
     },
     {
