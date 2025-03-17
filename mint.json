@@ -52,7 +52,8 @@
     {
       "group": "👋 Welcome",
       "pages": [
-        "introduction"
+        "introduction",
+        "tos"
       ]
     },
     {
