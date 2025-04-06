@@ -63,7 +63,7 @@
       ]
     },
     {
-      "dropdown":"📦 Products",
+      "group":"📦 Products",
       "pages":[
         "products/cubeshop",
         "products/cubeprefixes",
