@@ -55,13 +55,6 @@
     }
   ],
   "navigation": [
-    {
-      "group": "👋 Welcome",
-      "pages": [
-        "introduction",
-        "tos"
-      ]
-    },
     "dropdowns": [
       {
         "dropdown": "Documentation",
@@ -86,6 +79,13 @@
         "href": "https://external-link.com/blog"
       }
     ],
+    {
+      "group": "👋 Welcome",
+      "pages": [
+        "introduction",
+        "tos"
+      ]
+    },
     {
       "group": "📦 Products",
       "pages": [
