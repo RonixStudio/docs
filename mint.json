@@ -1,94 +1,96 @@
 {
-  "$schema": "https://mintlify.com/schema.json",
-  "theme": "venus",
-  "name": "Doscumentation",
-  "logo": {
-    "dark": "https://ronix.studio/assets/img/logo/logo.png",
-    "light": "/logo/light.svg"
+  "$schema":"https://mintlify.com/schema.json",
+  "theme":"venus",
+  "name":"Doscumentation",
+  "logo":{
+    "dark":"https://ronix.studio/assets/img/logo/logo.png",
+    "light":"/logo/light.svg"
   },
-  "favicon": "https://ronix.studio/assets/img/favicon.png",
-  "colors": {
-    "primary": "#5312e0",
-    "light": "#601feb",
-    "dark": "#5312e0",
-    "anchors": {
-      "from": "#5312e0",
-      "to": "#601feb"
+  "favicon":"https://ronix.studio/assets/img/favicon.png",
+  "colors":{
+    "primary":"#5312e0",
+    "light":"#601feb",
+    "dark":"#5312e0",
+    "anchors":{
+      "from":"#5312e0",
+      "to":"#601feb"
     }
   },
-  "topbarLinks": [
+  "topbarLinks":[
     {
-      "name": "Store",
-      "url": "https://builtbybit.com/creators/ronix-studios.183719"
+      "name":"Store",
+      "url":"https://builtbybit.com/creators/ronix-studios.183719"
     }
   ],
-  "topbarCtaButton": {
-    "name": "Join Discord",
-    "url": "https://ronix.studio/discord/"
+  "topbarCtaButton":{
+    "name":"Join Discord",
+    "url":"https://ronix.studio/discord/"
   },
-  "tabs": [
+  "tabs":[
     {
-      "name": "Terms of Services",
-      "url": "terms-of-services"
+      "name":"Terms of Services",
+      "url":"terms-of-services"
     }
   ],
-  "anchors": [
+  "anchors":[
     {
-      "name": "Website",
-      "icon": "globe",
-      "url": "https://ronix.studio"
+      "name":"Website",
+      "icon":"globe",
+      "url":"https://ronix.studio"
     },
     {
-      "name": "Join Community",
-      "icon": "discord",
-      "url": "https://ronix.studio/discord/"
+      "name":"Join Community",
+      "icon":"discord",
+      "url":"https://ronix.studio/discord/"
     },
     {
-      "name": "BuiltByBit",
-      "icon": "cube",
-      "url": "https://builtbybit.com/creators/ronix-studios.183719"
+      "name":"BuiltByBit",
+      "icon":"cube",
+      "url":"https://builtbybit.com/creators/ronix-studios.183719"
     },
     {
-      "name": "Polymart",
-      "icon": "p",
-      "url": "https://polymart.org/user/ronixstudios.22749"
+      "name":"Polymart",
+      "icon":"p",
+      "url":"https://polymart.org/user/ronixstudios.22749"
     }
   ],
-  "navigation": [
-    "dropdowns": [
-      {
-        "dropdown": "Documentation",
-        "icon": "book-open",
-        "pages": [
-          "quickstart",
-          "development",
-          "navigation"
-        ]
-      },
-      {
-        "dropdown": "API References",
-        "icon": "sqaure-terminal",
-        "pages": [
-          "api-reference/get",
-          "api-reference/post",
-          "api-reference/delete"
-        ]
-      },
-      {
-        "dropdown": "Blog",
-        "href": "https://external-link.com/blog"
-      }
-    ],
+  "navigation":[
     {
-      "group": "👋 Welcome",
-      "pages": [
+      "dropdowns":[
+        {
+          "dropdown":"Documentation",
+          "icon":"book-open",
+          "pages":[
+            "quickstart",
+            "development",
+            "navigation"
+          ]
+        },
+        {
+          "dropdown":"API References",
+          "icon":"sqaure-terminal",
+          "pages":[
+            "api-reference/get",
+            "api-reference/post",
+            "api-reference/delete"
+          ]
+        },
+        {
+          "dropdown":"Blog",
+          "href":"https://external-link.com/blog"
+        }
+      ]
+    },
+    {
+      "group":"👋 Welcome",
+      "pages":[
         "introduction",
         "tos"
       ]
     },
     {
-      "group": "📦 Products",
-      "pages": [
+      "group":"📦 Products",
+      "pages":[
         "products/cubeshop",
         "products/cubeprefixes",
         "products/cuberewards",
@@ -100,7 +102,7 @@
       ]
     }
   ],
-  "footerSocials": {
-    "github": "https://github.com/ronixstudios"
+  "footerSocials":{
+    "github":"https://github.com/ronixstudios"
   }
 }
