@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "theme": "prism",
+  "theme": "venus",
   "name": "Doscumentation",
   "logo": {
     "dark": "https://ronix.studio/assets/img/logo/logo.png",
