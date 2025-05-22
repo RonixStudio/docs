@@ -3,10 +3,10 @@
   "theme":"venus",
   "name":"Doscumentation",
   "logo":{
-    "dark":"/logo/ronix.svg",
+    "dark":"/logo/ronixlogo.svg",
     "light":"/logo/light.svg"
   },
-  "favicon":"/favicon.svg",
+  "favicon":"favicon.svg",
   "colors":{
     "primary":"#5312e0",
     "light":"#601feb",
