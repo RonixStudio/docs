@@ -6,7 +6,7 @@
     "dark":"/logo/ronixlogo.svg",
     "light":"/logo/ronixlogo2.svg"
   },
-  "favicon":"favicon.svg",
+  "favicon":"/logo/ronixlogo.svg",
   "colors":{
     "primary":"#5312e0",
     "light":"#601feb",
