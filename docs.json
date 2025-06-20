@@ -1,0 +1,87 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "palm",
+  "name": "Doscumentation",
+  "colors": {
+    "primary": "#5312e0",
+    "light": "#601feb",
+    "dark": "#5312e0"
+  },
+  "favicon": "/logo/ronixlogo.svg",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "👋 Welcome",
+            "pages": [
+              "introduction",
+              "tos"
+            ]
+          },
+          {
+            "group": "📦 Products",
+            "pages": [
+              "products/cubeshop",
+              "products/cubeprefixes",
+              "products/cuberewards",
+              "products/shopui",
+              "products/cubeicons",
+              "products/cubeplayerwarps",
+              "products/cubebattlepass",
+              "products/cubejobs",
+              "products/vio"
+            ]
+          }
+        ]
+      }
+    ],
+    "global": {
+      "anchors": [
+        {
+          "anchor": "Website",
+          "href": "https://ronix.studio",
+          "icon": "globe"
+        },
+        {
+          "anchor": "Join Community",
+          "href": "https://ronix.studio/discord/",
+          "icon": "discord"
+        },
+        {
+          "anchor": "BuiltByBit",
+          "href": "https://builtbybit.com/creators/ronix-studios.183719",
+          "icon": "cube"
+        },
+        {
+          "anchor": "Polymart",
+          "href": "https://polymart.org/user/ronixstudios.22749",
+          "icon": "p"
+        }
+      ]
+    }
+  },
+  "logo": {
+    "light": "/logo/ronixlogo2.svg",
+    "dark": "/logo/ronixlogo.svg"
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Store",
+        "href": "https://builtbybit.com/creators/ronix-studios.183719"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Join Discord",
+      "href": "https://ronix.studio/discord/"
+    }
+  },
+  "footer": {
+    "socials": {
+      "github": "https://github.com/ronixstudios"
+    }
+  }
+}
