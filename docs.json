@@ -3,9 +3,9 @@
   "theme": "maple",
   "name": "Documentation",
   "colors": {
-    "primary": "#5312e0",
-    "light": "#601feb",
-    "dark": "#5312e0"
+    "primary": "#6A01D3",
+    "light": "#FFFFFF",
+    "dark": "#000000"
   },
   "favicon": {
     "light": "/images/ronix-black-icon.svg",
@@ -91,6 +91,12 @@
     },
     "body": {
       "family": "Inter"
+    }
+  },
+  "background": {
+    "color": {
+      "light": "#FFFFFF",
+      "dark": "#000000"
     }
   }
 }
