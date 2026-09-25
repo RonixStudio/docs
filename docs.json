@@ -114,5 +114,8 @@
       "light": "#FFFFFF",
       "dark": "#000000"
     }
+  },
+  "metadata": {
+    "timestamp": true
   }
 }
