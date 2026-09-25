@@ -17,22 +17,38 @@
         {
           "anchor": "Website",
           "href": "https://ronix.studio",
-          "icon": "globe"
+          "icon": "globe",
+          "color": {
+            "light": "#FFFFFF",
+            "dark": "#FFFFFF"
+          }
         },
         {
           "anchor": "Join Community",
           "href": "https://ronix.studio/discord/",
-          "icon": "discord"
+          "icon": "discord",
+          "color": {
+            "light": "#FFFFFF",
+            "dark": "#FFFFFF"
+          }
         },
         {
           "anchor": "BuiltByBit",
           "href": "https://builtbybit.com/creators/ronix-studios.183719",
-          "icon": "store"
+          "icon": "store",
+          "color": {
+            "light": "#FFFFFF",
+            "dark": "#FFFFFF"
+          }
         },
         {
-          "anchor": "Polymart",
+          "anchor": "Voxel/Polymart",
           "href": "https://polymart.org/user/ronixstudios.22749",
-          "icon": "store"
+          "icon": "store",
+          "color": {
+            "light": "#FFFFFF",
+            "dark": "#FFFFFF"
+          }
         }
       ]
     },
