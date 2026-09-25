@@ -7,7 +7,10 @@
     "light": "#601feb",
     "dark": "#5312e0"
   },
-  "favicon": "/logo/ronixlogo.svg",
+  "favicon": {
+    "light": "/images/ronix-black-icon.svg",
+    "dark": "/images/ronix-white-icon.svg"
+  },
   "navigation": {
     "tabs": [
       {
@@ -63,8 +66,8 @@
     }
   },
   "logo": {
-    "light": "/logo/ronixlogo2.svg",
-    "dark": "/logo/ronixlogo.svg"
+    "light": "/images/ronix-black-full.svg",
+    "dark": "/images/ronix-white-full.svg"
   },
   "navbar": {
     "links": [
