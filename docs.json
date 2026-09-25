@@ -12,35 +12,6 @@
     "dark": "/images/ronix-white-icon.svg"
   },
   "navigation": {
-    "tabs": [
-      {
-        "tab": "",
-        "groups": [
-          {
-            "group": "👋 Welcome",
-            "pages": [
-              "introduction",
-              "tos"
-            ]
-          },
-          {
-            "group": "📦 Products",
-            "pages": [
-              "products/cubeshop",
-              "products/cubeprefixes",
-              "products/cuberewards",
-              "products/shopui",
-              "products/cubeicons",
-              "products/cubeplayerwarps",
-              "products/cubebattlepass",
-              "products/cubejobs",
-              "products/vio"
-            ]
-          }
-        ],
-        "hidden": true
-      }
-    ],
     "global": {
       "anchors": [
         {
@@ -64,7 +35,35 @@
           "icon": "p"
         }
       ]
-    }
+    },
+    "groups": [
+      {
+        "group": "Docs",
+        "pages": [
+          {
+            "group": "👋 Welcome",
+            "pages": [
+              "introduction",
+              "tos"
+            ]
+          },
+          {
+            "group": "📦 Products",
+            "pages": [
+              "products/cubeshop",
+              "products/cubeprefixes",
+              "products/cuberewards",
+              "products/shopui",
+              "products/cubeicons",
+              "products/cubeplayerwarps",
+              "products/cubebattlepass",
+              "products/cubejobs",
+              "products/vio"
+            ]
+          }
+        ]
+      }
+    ]
   },
   "logo": {
     "light": "/images/ronix-black-full.svg",
