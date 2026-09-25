@@ -36,31 +36,26 @@
         }
       ]
     },
-    "groups": [
+    "pages": [
       {
-        "group": "Docs",
+        "group": "Welcome",
         "pages": [
-          {
-            "group": "👋 Welcome",
-            "pages": [
-              "introduction",
-              "tos"
-            ]
-          },
-          {
-            "group": "📦 Products",
-            "pages": [
-              "products/cubeshop",
-              "products/cubeprefixes",
-              "products/cuberewards",
-              "products/shopui",
-              "products/cubeicons",
-              "products/cubeplayerwarps",
-              "products/cubebattlepass",
-              "products/cubejobs",
-              "products/vio"
-            ]
-          }
+          "introduction",
+          "tos"
+        ]
+      },
+      {
+        "group": "Products",
+        "pages": [
+          "products/cubeshop",
+          "products/cubeprefixes",
+          "products/cuberewards",
+          "products/shopui",
+          "products/cubeicons",
+          "products/cubeplayerwarps",
+          "products/cubebattlepass",
+          "products/cubejobs",
+          "products/vio"
         ]
       }
     ]
