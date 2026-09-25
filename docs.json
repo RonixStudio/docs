@@ -89,5 +89,13 @@
   },
   "icons": {
     "library": "lucide"
+  },
+  "fonts": {
+    "heading": {
+      "family": "Plus Jakarta Sans"
+    },
+    "body": {
+      "family": "Inter"
+    }
   }
 }
