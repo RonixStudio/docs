@@ -3,7 +3,7 @@
   "theme": "maple",
   "name": "Documentation",
   "colors": {
-    "primary": "#6A01D3",
+    "primary": "#000000",
     "light": "#FFFFFF",
     "dark": "#000000"
   },
