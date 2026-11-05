@@ -64,6 +64,7 @@
         "group": "Products",
         "pages": [
           "products/cubeshop",
+          "products/wanderer-shop",
           "products/cubeprefixes",
           "products/cuberewards",
           "products/shopui",
