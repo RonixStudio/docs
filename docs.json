@@ -52,26 +52,41 @@
         }
       ]
     },
-    "pages": [
+    "dropdowns": [
       {
-        "group": "Welcome",
+        "dropdown": "Welcome",
         "pages": [
           "introduction",
           "tos"
         ]
       },
       {
-        "group": "Products",
+        "dropdown": "GUI & Textures",
         "pages": [
           "products/cubeshop",
-          "products/wanderer-shop",
           "products/cubeprefixes",
           "products/cuberewards",
           "products/shopui",
           "products/cubeicons",
           "products/cubeplayerwarps",
           "products/cubebattlepass",
-          "products/cubejobs",
+          "products/cubejobs"
+        ]
+      },
+      {
+        "dropdown": "Plugins",
+        "groups": [
+          {
+            "group": "WandererShop",
+            "pages": [
+              "products/wanderer-shop"
+            ]
+          }
+        ]
+      },
+      {
+        "dropdown": "Tebex Themes",
+        "pages": [
           "products/vio"
         ]
       }
