@@ -12,458 +12,790 @@ icon:
 </Info>
 
 <Tabs>
-  <Tab title="Features">
-    <CardGroup cols="2">
-      <Card title="**Events that run themselves**" icon="calendar-clock">
-        Weekly or one-off schedules in your time zone. A start missed while the server was down opens late with its original end, or is skipped. Warnings before closing, a reminder for players who join during an event, and a boss bar countdown. An open event survives restarts, and you can extend or shorten it while it runs.
-      </Card>
-      <Card title="**Personal, hidden offers**" icon="package-open">
-        Six cards per player in the bundled menu, or as many card slots as you lay out. Rarities with weights, per-set limits and discount ranges; per-item weights, discounts and permissions. `preview` and `odds` show exactly what players can draw before you open the market.
-      </Card>
-      <Card title="**Rewards of every kind**" icon="sword">
-        Vanilla items with full data components: name, lore, enchantments, item model, custom model data, glint, unbreakable, hidden tooltip parts. Any item in `/give` syntax. Custom items from ItemsAdder, Nexo, Oraxen and CraftEngine. Console commands, run exactly once per purchase.
-      </Card>
-      <Card title="**Vault and PlayerPoints**" icon="tool-case">
-        Vault charges through the one economy plugin you name: EssentialsX, CMI, ExcellentEconomy and others. If another plugin takes over Vault, cards become unavailable instead of charging the wrong wallet. Each item picks its currency; PlayerPoints prices are whole points.
-      </Card>
-      <Card title="**Purchases that never charge twice**" icon="shield-check">
-        Every purchase is recorded before and after the charge. If the server crashes mid-purchase, the purchase is held for review instead of retried, the player cannot be charged again, and staff are alerted. Every uncertain case has its own review command.
-      </Card>
-      <Card title="**A mailbox for full inventories**" icon="mailbox">
-        A full inventory does not block a purchase: what does not fit waits in the mailbox, never expires, and is claimed with a click or `/ws mail`. Players with waiting rewards are told when they join.
-      </Card>
-      <Card title="**Your menus, sounds and words**" icon="languages">
-        Menu size, card slots, icons and resource-pack item models. Every sound. Every message in MiniMessage, with English, Turkish, German, Spanish, French and Russian included.
-      </Card>
-      <Card title="**PlaceholderAPI**" icon="code-xml">
-        Thirteen placeholders for scoreboards, TAB and holograms: open or closed, time left, the next opening, cards revealed and bought, the mailbox count. They read from memory, so they are safe from any thread.
-      </Card>
-      <Card title="**SQLite or MariaDB/MySQL**" icon="database">
-        SQLite with no setup, or MariaDB 10.6+ and MySQL 8.0.16+. A daily SQLite backup, a backup before every schema update, and a cleanup job that never touches an unresolved money record.
-      </Card>
-      <Card title="**Tools for staff**" icon="slash">
-        Status and diagnostics, odds and previews, a player's offers, mailbox and purchases, rerolls, a free `test give` to try rewards before an event, and clickable `/ws help` and `/ws admin help`.
-      </Card>
-    </CardGroup>
-  </Tab>
-  <Tab title="Installation">
-    <Steps>
-      <Step title="Step 1">
-        Download the resource from BuiltByBit or Polymart.
+  <Tab title="Offers">
+    `pool.yml` decides what the merchant sells: rarities, items, prices and rewards. The bundled file is a working example to start from.
 
-        <Note>
-          Your server version should be **Paper 26.2+**
-        </Note>
-      </Step>
-      <Step title="Step 2">
-        You should install the necessary plugins before installing the resource.
+    <Warning>
+      **The one rule to remember:** an event freezes `pool.yml` when it opens. Changes apply from the next event. To change a running event: `event stop confirm`, edit the file, `validate`, `reload`, `event start`.
+    </Warning>
 
-        <Note>
-          If you installed _necessary plugins_ before you don't need to do this step. Backup your configuration files before setup the configuration.
-        </Note>
-      </Step>
-      <Step title="Step 3">
-        Stop your server and make sure you meet the necessary requirements.
-      </Step>
-      <Step title="Step 4">
-        Put the jar into `plugins/`**.**
-      </Step>
-      <Step title="Step 5">
-        Start the server once, then stop it.\*\* \*\*WandererShop creates `plugins/WandererShop/`. With no license key yet it prints a framed `LICENSE VERIFICATION FAILED` block and turns itself off. That is expected.
-      </Step>
-      <Step title="Step 6">
-        Set three values in `config.yml`\*\*. \*\*A name for this server, your economy plugin, and your license key:
+    ### Rarities
 
-        ```text
-        server-id: "survival"                  # lowercase letters, digits, - and _; the license binds to it
-        
-        economy:
-          vault:
-            expected-provider: "Essentials"    # your economy plugin (see Economy setup)
-        
-        license:
-          key: "WS-XXXX-XXXX-XXXX-XXXX"        # the key you received
-        ```
-      </Step>
-      <Step title="Step 7">
-        Start the server. The console shows `License verified` and `WandererShop ready`.
-      </Step>
-      <Step title="Step 8">
-        Open your first market. Run `wanderershop admin event start 1h` in the console. Players open it with `/ws`.
+    Rarities color the hidden cards, limit how many of each a player can get, and set the discount range. These five ship with the plugin; rename, recolor, add or remove them freely.
 
-        Next, make the offers your own in `pool.yml`, then run `/ws admin validate` and `/ws admin reload`. For automatic markets, turn on a schedule.
-      </Step>
-    </Steps>
-  </Tab>
-  <Tab title="Commands">
-    `/wanderershop` also answers to `/ws` and `/wshop` (`commands.aliases`). `/ws help` shows each player the commands they may use; anyone with an admin permission also gets `/ws admin help`. Every command in those lists is clickable: one that only shows something runs, one that changes something goes into the chat box first.
+    | **Rarity** | **Weight** | **Discount** | **Per set** | **Reveal (sound)** |
+    | --- | --- | --- | --- | --- |
+    | Common | 100 | 0–15% in 5% steps | at most 4 | pling |
+    | Uncommon | 60 | 5–20% | at most 3 | chime |
+    | Rare | 30 | 10–30% | at most 2 | amethyst chime |
+    | Epic | 15 | 15–35% | at most 1 | level up |
+    | Legendary | 5 | 20–40% | at most 1 | challenge complete<br />(announced to the server) |
 
-    > **For Players:**
+    Weight belongs to each item: a rarity with many items shows up more often overall. `/ws admin odds` prints the real chances, and `validate` warns about items with less than a 0.5% chance.
 
-    | **Command** | **Permission** | **What it does** |
-    | --- | --- | --- |
-    | /ws | wanderershop.use | Opens the market. |
-    | /ws mailbox, /ws mail | wanderershop.mailbox | Collects the rewards waiting in the mailbox. |
-    | /ws about | wanderershop.use | Version, developer and website. |
-    | /ws help | any of the above | The commands you may use, clickable. |
-
-    > **For Staff:**
-
-    <table>
-      <colgroup>
-        <col width="227" />
-        <col width="226" />
-        <col width="248" />
-      </colgroup>
-      <thead>
-        <tr>
-          <th>**Command**</th>
-          <th>**Permission**</th>
-          <th>**What it does**</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>/ws admin event start [duration] [offers]</td>
-          <td>wanderershop.admin.event</td>
-          <td>Opens an event now. Without a duration, `event.default-duration`; offers from 1 to the number of card slots.</td>
-        </tr>
-        <tr>
-          <td>/ws admin event stop confirm</td>
-          <td>wanderershop.admin.event</td>
-          <td>Closes the open event.</td>
-        </tr>
-        <tr>
-          <td>/ws admin event extend \<duration></td>
-          <td>wanderershop.admin.event</td>
-          <td>Moves the closing time later.</td>
-        </tr>
-        <tr>
-          <td>/ws admin event shorten \<duration> confirm</td>
-          <td>wanderershop.admin.event</td>
-          <td>Moves the closing time earlier, to at least one minute from now.</td>
-        </tr>
-        <tr>
-          <td>/ws admin event schedule</td>
-          <td>wanderershop.admin.event</td>
-          <td>The next five scheduled openings and any conflicts.</td>
-        </tr>
-      </tbody>
-    </table>
-
-    > **Setup and diagnostics:**
-
-    <table>
-      <colgroup>
-        <col width="227" />
-        <col width="226" />
-        <col width="248" />
-      </colgroup>
-      <thead>
-        <tr>
-          <th>**Command**</th>
-          <th>**Permission**</th>
-          <th>**What it does**</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>/ws admin status</td>
-          <td>wanderershop.admin.status</td>
-          <td>Plugin state, the open event and its counts, every currency and item provider, records awaiting review.</td>
-        </tr>
-        <tr>
-          <td>/ws admin license</td>
-          <td>wanderershop.admin.license</td>
-          <td>Who the plugin is licensed to, the masked key, the bound server, the end date and the time left.</td>
-        </tr>
-        <tr>
-          <td>/ws admin validate</td>
-          <td>wanderershop.admin.reload</td>
-          <td>Checks `config.yml`, `pool.yml` and the language file without applying them.</td>
-        </tr>
-        <tr>
-          <td>/ws admin reload</td>
-          <td>wanderershop.admin.reload</td>
-          <td>Applies the files. `pool.yml` changes apply from the next event.</td>
-        </tr>
-        <tr>
-          <td>/ws admin debug</td>
-          <td>wanderershop.admin.debug</td>
-          <td>Versions, storage, economy registrations and integrations: include it when you ask for support.</td>
-        </tr>
-        <tr>
-          <td>/ws admin help</td>
-          <td>any admin permission</td>
-          <td>The admin commands you may use, by topic.</td>
-        </tr>
-      </tbody>
-    </table>
-
-    > **Players and offers:**
-
-    <table>
-      <colgroup>
-        <col width="227" />
-        <col width="226" />
-        <col width="248" />
-      </colgroup>
-      <thead>
-        <tr>
-          <th>**Command**</th>
-          <th>**Permission**</th>
-          <th>**What it does**</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>/ws admin offers \<player></td>
-          <td>wanderershop.admin.inspect</td>
-          <td>The player's offers in the open event: slot, item, status, price.</td>
-        </tr>
-        <tr>
-          <td>/ws admin preview [player]</td>
-          <td>wanderershop.admin.inspect</td>
-          <td>The set a player would get, without saving anything. With no event, a sample set from the current pool.</td>
-        </tr>
-        <tr>
-          <td>/ws admin odds [samples]</td>
-          <td>wanderershop.admin.inspect</td>
-          <td>Each item's chance to appear and its average discount; 1,000 to 200,000 samples, 20,000 by default.</td>
-        </tr>
-        <tr>
-          <td>/ws admin mailbox \<player></td>
-          <td>wanderershop.admin.inspect</td>
-          <td>The player's undelivered rewards, with the purchase reference and the last error.</td>
-        </tr>
-        <tr>
-          <td>/ws admin reroll \<player> confirm</td>
-          <td>wanderershop.admin.reroll</td>
-          <td>Draws the player's offers again; only for an online player with no purchase in this event.</td>
-        </tr>
-      </tbody>
-    </table>
-
-    > **Purchases and review:**
-
-    <table>
-      <colgroup>
-        <col width="227" />
-        <col width="226" />
-        <col width="248" />
-      </colgroup>
-      <thead>
-        <tr>
-          <th>**Command**</th>
-          <th>**Permission**</th>
-          <th>**What it does**</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>/ws admin reconcile list</td>
-          <td>wanderershop.admin.reconcile</td>
-          <td>Everything awaiting a decision.</td>
-        </tr>
-        <tr>
-          <td>/ws admin purchase \<ref></td>
-          <td>wanderershop.admin.inspect</td>
-          <td>Everything known about one purchase.</td>
-        </tr>
-        <tr>
-          <td>/ws admin purchases \<player></td>
-          <td>wanderershop.admin.inspect</td>
-          <td>The player's recent purchases.</td>
-        </tr>
-        <tr>
-          <td>/ws admin reconcile purchase \<ref> charged | charged-redeliver | not-charged [--note "reason"] confirm</td>
-          <td>wanderershop.admin.reconcile</td>
-          <td>Settles a purchase under review.</td>
-        </tr>
-        <tr>
-          <td>/ws admin reconcile delivery \<ref> delivered | redeliver | cancel [--note "reason"] confirm</td>
-          <td>wanderershop.admin.reconcile</td>
-          <td>Settles a delivery under review.</td>
-        </tr>
-      </tbody>
-    </table>
-
-    > **Testing:**
-
-    <table>
-      <colgroup>
-        <col width="227" />
-        <col width="226" />
-        <col width="248" />
-      </colgroup>
-      <thead>
-        <tr>
-          <th>**Command**</th>
-          <th>**Permission**</th>
-          <th>**What it does**</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>/ws admin test give \<item> [player] [--no-commands] confirm</td>
-          <td>wanderershop.admin.test</td>
-          <td>Gives an item's rewards for free, exactly like a purchase, so you can try command rewards before an event.</td>
-        </tr>
-      </tbody>
-    </table>
-
-    - **Durations:** `30m`, `2h`, `1d12h`, `3d`; from one minute to 30 days.
-    - **Confirmation:** a command that changes something waits for `confirm`. Without it, it prints the full command to confirm.
-    - `<player>`**:** an online name, a UUID, or the last name of a player who has opened the market on this server.
-    - **Console:** every admin command also runs from the console, without the slash.
-  </Tab>
-  <Tab title="Permissions">
-    | **Permission** | **Default** | **Allows** |
-    | --- | --- | --- |
-    | wanderershop.use | everyone | Opening the market, revealing cards and buying; `/ws about`. |
-    | wanderershop.mailbox | everyone | Claiming the mailbox. |
-    | wanderershop.announce | everyone | Seeing event announcements, warnings, the join reminder and the boss bar. |
-    | wanderershop.admin | op | Every admin permission below. |
-    | wanderershop.admin.status | op | status |
-    | wanderershop.admin.event | op | event start, stop, extend, shorten, schedule |
-    | wanderershop.admin.inspect | op | offers, preview, odds, mailbox, purchase, purchases |
-    | wanderershop.admin.reroll | op | reroll |
-    | wanderershop.admin.reconcile | op | reconcile |
-    | wanderershop.admin.license | op | license |
-    | wanderershop.admin.debug | op | debug |
-    | wanderershop.admin.reload | op | validate, reload |
-    | wanderershop.admin.alerts | op | Live alerts about purchases under review and purchase anomalies, and a reminder on join. |
-    | wanderershop.admin.test | op | test give |
-
-    ### **Offers only some players can draw**
-
-    Give an item a `permission` in `pool.yml` and only players with that permission can draw it. The name is yours to choose, so VIP ranks can get offers no one else sees:
+    ### An Item
 
     ```yaml
-    master_pack:
+    items:
+      dragon_sword:                      # id: a-z, 0-9, _ ; never rename or reuse it
         rarity: epic
-        price: { currency: vault, amount: 30000 }
-        permission: "wanderershop.pool.vip"   # checked when the player's set is made
+        weight: 12                       # optional, overrides the rarity's weight
+        price: { currency: vault, amount: 20000 }
+        discount: { min: 15, max: 35, step: 5 }   # optional; 0 = never discounted
+        rewards:
+          - item:
+              material: netherite_sword
+              name: "<gradient:#ff5555:#ffaa00>Dragon Sword</gradient>"
+              lore: ["<gray>Forged with a dragon's breath."]
+              enchantments: { sharpness: 5, fire_aspect: 2, unbreaking: 3 }
+              item-model: "minecraft:netherite_sword"
+              custom-model-data: { strings: ["dragon"] }
+              glint: true
+              unbreakable: true
+              hide-tooltip: [enchantments, unbreakable]
+          - item: { material: golden_apple, amount: 3 }
     ```
-  </Tab>
-  <Tab title="Placeholders">
+
     <table>
       <colgroup>
-        <col width="296" />
-        <col width="156" />
-        <col width="242" />
+        <col width="105" />
+        <col width="612" />
       </colgroup>
       <thead>
         <tr>
-          <th>**Placeholder**</th>
-          <th>**Example**</th>
-          <th>**Shows**</th>
+          <th>**Key**</th>
+          <th>**Meaning**</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>%wanderershop_status%</td>
-          <td>Open</td>
-          <td>`Open` or `Closed` in your language</td>
+          <td>rarity</td>
+          <td>One of your rarities.</td>
         </tr>
         <tr>
-          <td>%wanderershop_status_raw%</td>
-          <td>open</td>
-          <td>`open` or `closed`, for conditions</td>
+          <td>price</td>
+          <td>`{ currency: vault | playerpoints, amount: 15000 }`. A dot for decimals, no thousands separator. Vault allows two decimals, PlayerPoints whole numbers.</td>
         </tr>
         <tr>
-          <td>%wanderershop_open%</td>
-          <td>YES</td>
-          <td>Whether the market is open now</td>
+          <td>weight</td>
+          <td>Optional; overrides the rarity's weight.</td>
         </tr>
         <tr>
-          <td>%wanderershop_time%</td>
-          <td>2h 10m</td>
-          <td>Time to closing while open, to the next opening while closed</td>
+          <td>discount</td>
+          <td>Optional; `0`, or `{ min, max, step }`. Fixed when a player's set is made.</td>
         </tr>
         <tr>
-          <td>%wanderershop_time_left%</td>
-          <td>2h 10m</td>
-          <td>Time to closing; empty while closed</td>
+          <td>permission</td>
+          <td>Optional; only players with it can draw the item.</td>
         </tr>
         <tr>
-          <td>%wanderershop_ends_at%</td>
-          <td>Wednesday 23 September 20:00</td>
-          <td>When the open market closes</td>
+          <td>display</td>
+          <td>Optional card look: `icon`, `name`, `lore`. Shown only, never delivered; required when an item gives only commands.</td>
         </tr>
         <tr>
-          <td>%wanderershop_next_open%</td>
-          <td>Thursday 24 September 20:00</td>
-          <td>The next scheduled opening</td>
+          <td>enabled</td>
+          <td>`false` keeps the item out of the pool.</td>
         </tr>
         <tr>
-          <td>%wanderershop_next_open_in%</td>
-          <td>1d 2h</td>
-          <td>Time to the next opening</td>
-        </tr>
-        <tr>
-          <td>%wanderershop_offers_total%</td>
-          <td>6</td>
-          <td>The player's cards in this event</td>
-        </tr>
-        <tr>
-          <td>%wanderershop_offers_hidden%</td>
-          <td>3</td>
-          <td>Cards not revealed yet</td>
-        </tr>
-        <tr>
-          <td>%wanderershop_offers_revealed%</td>
-          <td>2</td>
-          <td>Cards revealed</td>
-        </tr>
-        <tr>
-          <td>%wanderershop_offers_purchased%</td>
-          <td>1</td>
-          <td>Cards bought</td>
-        </tr>
-        <tr>
-          <td>%wanderershop_mailbox%</td>
-          <td>4</td>
-          <td>Rewards waiting in the mailbox</td>
+          <td>rewards</td>
+          <td>One or more items and commands, delivered together.</td>
         </tr>
       </tbody>
     </table>
+
+    ### Rewards
+
+    ```yaml
+    rewards:
+      - item: experience_bottle                                   # one unit
+      - item: { material: diamond, amount: 4 }
+      - item: { give: "minecraft:potion[potion_contents={potion:'minecraft:strong_swiftness'}]", amount: 3 }
+      - item: "itemsadder:myns:dragon_sword"                      # custom item
+      - item: { key: "nexo:ruby", amount: 3, name: "<red>Ruby" }
+      - command: "lp user {uuid} parent addtemp vip 7d accumulate"
+        description: "VIP rank (7 days)"                          # shown on the card
+    ```
+
+    - **Commands** run from the console after the charge and the items, in order, exactly once per purchase, even if the server crashes. Only `{player}` `{uuid}` `{event_id}` `{offer_id}` `{purchase_id}` `{item_id}` are filled in.
+    - Use `{uuid}` for plugins that accept it (LuckPerms). Vanilla commands need `{player}`; write them as `minecraft:experience add {player} 10 levels` so no other plugin's command runs instead.
+    - An item whose command is not installed cannot be bought, and nobody is charged. Try every command reward with `/ws admin test give <item> <yourself> confirm` before the event.
   </Tab>
-  <Tab title="Licenses">
-    Your purchase comes with a license key, `WS-XXXX-XXXX-XXXX-XXXX`. WandererShop checks it once, at startup.
+  <Tab title={"Events & Schedules"}>
+    Open a market by hand with `/ws admin event start [duration] [offers]`, or let schedules do it. Times are in `locale.timezone`.
 
-    - Put the key into `license.key`, or into the `WANDERERSHOP_LICENSE` environment variable.
-    - **The first start binds the key to your** `server-id`**.** Choose it before that start and keep it. To move to another server, ask the seller to release the key.
-    - If the license server cannot be reached, the last confirmed license keeps working for up to seven days.
-    - Only the key, the `server-id`, the plugin version and the server port are sent. No player data.
-    - `/ws admin license` shows who it is licensed to and when it ends. You can also check a key at [ronix-plugins.vercel.app](http://ronix-plugins.vercel.app).
+    ```yaml
+    schedules:
+      weekend:
+        enabled: true
+        type: weekly                 # weekly | once
+        days: [FRIDAY]               # MONDAY..SUNDAY; an empty list means every day
+        time: "20:00"
+        duration: "3d"               # Friday 20:00 to Monday 20:00
+        offers-per-player: 6         # optional
+      halloween:
+        enabled: true
+        type: once
+        at: "2026-10-31T20:00"
+        duration: "48h"
+    ```
 
-    | **The console says** | **Do this** |
-    | --- | --- |
-    | no license key | Set `license.key` and restart. |
-    | unknown license key | Copy the key again, exactly. |
-    | license is bound to another server-id | Use the `server-id` you started with first, or ask the seller to release the key. |
-    | license expired, license revoked | Contact the seller. |
-    | server unreachable | Allow outbound HTTPS to [ronix-plugins.vercel.app](http://ronix-plugins.vercel.app) and restart. |
+    - The bundled examples ship turned off. After a change: `validate`, then `reload`; `/ws admin event schedule` lists the next five openings.
+    - If the server was down at the start time, `event.late-start: open-late` opens it late with its original end; `skip` skips that one.
+    - Warnings before closing (`1d`, `1h`, `10m`, `1m` by default) are sent once per event, even across restarts. The last ones also show a title and play a sound.
+    - The boss bar appears in the last hour by default; its color and style are yours to set.
+    - Players who join during an event get a reminder with a clickable `[Open]`.
   </Tab>
-  <Tab title="Dependencies">
-    <CardGroup cols="4">
-      <Card title="Paper 26.2+" icon="puzzle">
-      </Card>
+  <Tab title="Economy">
+    WandererShop charges Vault prices through one economy plugin, and you name it. If another economy plugin takes over Vault, the currency becomes unavailable and the reason is printed: no one is charged from a wallet you did not choose.
 
-      <Card title="Vault or VaultUnlocked" icon="tool-case" href="https://www.spigotmc.org/resources/shopgui-1-8-1-19.6515/">
-      </Card>
+    1. Run `wanderershop admin debug` in the console.
+    2. Among the `Vault economy` lines, the highest priority wins, for example `owner=Essentials · priority=Normal`.
+    3. Write that owner name into `economy.vault.expected-provider` and run `wanderershop admin reload`.
+    4. `wanderershop admin status` then shows `Currency vault: ready · Essentials`.
 
-      <Card title="An economy plugin" icon="banknote" href="https://www.spigotmc.org/resources/%E2%9C%A8itemsadder%E2%AD%90emotes-mobs-items-armors-hud-gui-emojis-blocks-wings-hats-liquids.73355/">
-      </Card>
+    <table>
+      <colgroup>
+        <col width="253" />
+        <col width="226" />
+        <col width="232" />
+      </colgroup>
+      <thead>
+        <tr>
+          <th>**Reason in** `status`</th>
+          <th>**Meaning**</th>
+          <th>**Fix**</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>NO_PROVIDER</td>
+          <td>No Vault, or no economy registered yet</td>
+          <td>Install Vault and an economy plugin; CMI registers a little after startup.</td>
+        </tr>
+        <tr>
+          <td>EXPECTED_PROVIDER_EMPTY</td>
+          <td>`expected-provider` is empty</td>
+          <td>Write the suggested name into `config.yml`, then `reload`.</td>
+        </tr>
+        <tr>
+          <td>PROVIDER_MISMATCH</td>
+          <td>Another plugin owns Vault</td>
+          <td>Fix `expected-provider`, or turn off the other plugin's Vault hook.</td>
+        </tr>
+        <tr>
+          <td>SCALE_INCOMPATIBLE</td>
+          <td>The economy keeps fewer decimals than your prices</td>
+          <td>Use whole-number prices, or lower `currencies.vault.scale`.</td>
+        </tr>
+        <tr>
+          <td>PROVIDER_ERROR</td>
+          <td>The economy plugin is disabled or failed</td>
+          <td>Check that plugin's own log.</td>
+        </tr>
+      </tbody>
+    </table>
 
-      <Card title="Java 25" icon="coffee" href="https://www.spigotmc.org/resources/%E2%98%84%EF%B8%8F-oraxen-add-items-blocks-armors-hats-food-furnitures-plants-and-gui-1-18-1-20-1.72448/">
-      </Card>
-    </CardGroup>
+    While a currency is unavailable, its cards read "Currently unavailable" and no confirm menu opens. **PlayerPoints** needs no setup: set an item's `price.currency` to `playerpoints`. Without the plugin, those cards are simply unavailable.
   </Tab>
-  <Tab title="ToS">
-    <Card title="Terms of Service" icon="scroll-text" href="/tos" cta="Click to see terms of service">
-    </Card>
+  <Tab title="Purchase Safety">
+    Every purchase is written to the database before the money moves and again after. The balance is checked before and after the charge, so an economy plugin that takes a different amount is caught. A player can never buy an offer twice, and a crash never charges anyone twice.
+
+    When the server cannot know for sure what happened, for example a crash at the exact moment of payment, the record is held for review instead of being retried. The player's card shows "Under review" and staff with `wanderershop.admin.alerts` get an alert.
+
+    <table>
+      <colgroup>
+        <col width="138" />
+        <col width="226" />
+        <col width="349" />
+      </colgroup>
+      <thead>
+        <tr>
+          <th>**Held for review**</th>
+          <th>**What happened**</th>
+          <th>**Settle with**</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Purchase<br />`IN_DOUBT`</td>
+          <td>Unknown whether the charge was taken. Check the economy plugin's log.</td>
+          <td>`reconcile purchase <ref> charged | charged-redeliver | not-charged confirm`</td>
+        </tr>
+        <tr>
+          <td>Delivery<br />`IN_DOUBT`</td>
+          <td>An error while giving an item, or a crash during a mailbox claim.</td>
+          <td>`reconcile delivery <ref> delivered | redeliver | cancel confirm`</td>
+        </tr>
+        <tr>
+          <td>Delivery<br />`FAILED`</td>
+          <td>A command reward was not found or threw an error after the charge.</td>
+          <td>Give the reward by hand, then `reconcile delivery <ref> …`</td>
+        </tr>
+      </tbody>
+    </table>
+
+    - `/ws admin reconcile list` shows everything awaiting a decision; `status` shows the counts.
+    - The player is told the decision exactly once: right away if online, otherwise on their next join.
+    - Outcomes that cannot reach the database while the server stops are kept in a journal file and written at the next start.
+  </Tab>
+  <Tab title="Mailbox">
+    With `purchase.inventory-full: mailbox` (the default), a full inventory does not stop a purchase. The confirm screen warns how many stacks will not fit; after payment they go to the mailbox. With `refuse`, a purchase that does not fit is turned down before payment.
+
+    - Players claim with `/ws mail` or the mailbox button in the market menu, up to `mailbox.claim-batch` rewards at a time.
+    - Rewards in the mailbox never expire: they are paid goods.
+    - Players with waiting rewards get a clickable `[Claim]` when they join.
+    - Staff see any player's mailbox with `/ws admin mailbox <player>`.
+  </Tab>
+  <Tab title="Custom Items">
+    ItemsAdder, Nexo, Oraxen and CraftEngine items work as rewards and as card icons. Write the key as `<provider>:<identifier>`, for example `itemsadder:myns:dragon_sword` or `nexo:ruby`. Identifiers are checked once the provider has loaded its content; a typo is reported with a suggestion.
+
+    <table>
+      <colgroup>
+        <col width="138" />
+        <col width="281" />
+        <col width="282" />
+      </colgroup>
+      <thead>
+        <tr>
+          <th>**Provider status**</th>
+          <th>**Meaning**</th>
+          <th>**Its items**</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>`READY`</td>
+          <td>Content loaded</td>
+          <td>Drawn and sold normally.</td>
+        </tr>
+        <tr>
+          <td>`WAITING`</td>
+          <td>Plugin enabled, content still loading</td>
+          <td>Not drawn into new sets yet.</td>
+        </tr>
+        <tr>
+          <td>`RELOADING`</td>
+          <td>The plugin is reloading, for example `/iareload`</td>
+          <td>Cards read "currently unavailable"; nobody is charged.</td>
+        </tr>
+        <tr>
+          <td>`ABSENT`</td>
+          <td>Not installed or disabled</td>
+          <td>Not drawn.</td>
+        </tr>
+        <tr>
+          <td>`FAILED`</td>
+          <td>Installed but its API is incompatible</td>
+          <td>Not drawn; a one-line reason in the log.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    A custom item can never end up "charged but not delivered": if its provider is not ready, the card cannot be bought. `/ws admin debug` shows each provider's status.
+  </Tab>
+  <Tab title={"Menus, Sounds & Languages"}>
+    - **Menus** (`config.yml → gui`): rows, card slots, the timer, mailbox and close buttons, the frame and fill. Every icon takes a `material` and an optional resource-pack `item-model`. Slots count from 0 (row × 9 + column) and accept ranges such as `"10-16"`.
+    - A broken `gui` section is rejected as a whole: `reload` keeps the last valid layout and `validate` says why.
+    - **Hidden cards** take their look from the rarity: `card: { hidden-material, hidden-item-model }`. With `gui.show-rarity-when-hidden: false` they hide their rarity too.
+    - **Sounds** are written as `"key volume pitch"`, for example `"minecraft:block.bell.resonate 1.0 1.0"`. Resource-pack sounds work; `""` is silent.
+    - **Messages** live in `lang/<language>.yml` and use MiniMessage; `<prefix>` works in every message. English, Turkish, German, Spanish, French and Russian ship with the plugin; pick one with `locale.language`.
+  </Tab>
+  <Tab title={"Storage & Backups"}>
+    **SQLite** is the default and needs no setup: the data lives in `plugins/WandererShop/wanderershop.db`. For **MariaDB 10.6+ or MySQL 8.0.16+**, create an empty database and set `storage.type: mariadb`; WandererShop creates its tables. Use one database per server.
+
+    ```yaml
+    storage:
+      type: mariadb
+      mariadb:
+        host: "db.example.net"
+        port: 3306
+        database: "wanderershop"
+        username: "wanderershop"
+        password: "a-long-random-password"
+        parameters: ""               # MySQL without SSL: "allowPublicKeyRetrieval=true"
+    ```
+
+    - **SQLite backups** go to `plugins/WandererShop/backups/`: one before every schema update, and one a day after the cleanup job, the last seven kept. They are consistent copies, safe while the server runs.
+    - For MariaDB or MySQL, back up with `mariadb-dump --single-transaction` or `mysqldump`.
+    - Keep `secret.key` with your backups: it makes every player's hidden offers unpredictable.
+
+    ### Cleanup
+
+    Five minutes after startup and then once a day, old data is removed. Nothing that belongs to a purchase under review or an undelivered reward is ever deleted.
+
+    | **Setting** | **Default** | **Removes** |
+    | --- | --- | --- |
+    | `retention.closed-event-offers` | 60d | Unbought offers of closed events |
+    | `retention.delivered` | 90d | Delivered or cancelled rewards |
+    | `retention.audit` | 365d | Audit records |
+    | `retention.purchases` | 0 | Completed purchases; `0` keeps them forever |
+    | `retention.journal-replayed` | 90d | Replayed journal files |
+  </Tab>
+  <Tab title="Config">
+    Every key `config.yml` understands. After editing: `/ws admin validate`, then `/ws admin reload`. "Restart" means the change waits for the next server start. A broken file never takes the plugin down: at startup it runs with safe defaults, and on reload the old settings stay.
+
+    <table>
+      <colgroup>
+        <col width="207" />
+        <col width="162" />
+        <col width="100" />
+        <col width="325" />
+      </colgroup>
+      <thead>
+        <tr>
+          <th>**Key**</th>
+          <th>**Default**</th>
+          <th>**Applies**</th>
+          <th>**Meaning**</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>server-id</td>
+          <td>"main"</td>
+          <td>restart</td>
+          <td>Lowercase letters, digits, `_` and `-` (1–32). Written to records; the license binds to it.</td>
+        </tr>
+        <tr>
+          <td>locale.language</td>
+          <td>en_US</td>
+          <td>reload</td>
+          <td>Message language: `en_US`, `tr_TR`, `de_DE`, `es_ES`, `fr_FR`, `ru_RU`.</td>
+        </tr>
+        <tr>
+          <td>locale.timezone</td>
+          <td>"Europe/Istanbul"</td>
+          <td>reload</td>
+          <td>IANA time zone for schedules and shown times.</td>
+        </tr>
+        <tr>
+          <td>storage.type</td>
+          <td>sqlite</td>
+          <td>restart</td>
+          <td>`sqlite` or `mariadb` (MariaDB 10.6+, MySQL 8.0.16+).</td>
+        </tr>
+        <tr>
+          <td>storage.sqlite.file</td>
+          <td>"wanderershop.db"</td>
+          <td>restart</td>
+          <td>Database file under `plugins/WandererShop/`.</td>
+        </tr>
+        <tr>
+          <td>storage.mariadb.host</td>
+          <td>"localhost"</td>
+          <td>restart</td>
+          <td>Database server host.</td>
+        </tr>
+        <tr>
+          <td>storage.mariadb.port</td>
+          <td>3306</td>
+          <td>restart</td>
+          <td>Database server port.</td>
+        </tr>
+        <tr>
+          <td>storage.mariadb.database</td>
+          <td>"wanderershop"</td>
+          <td>restart</td>
+          <td>Database name; it must exist.</td>
+        </tr>
+        <tr>
+          <td>storage.mariadb.username</td>
+          <td>"wanderershop"</td>
+          <td>restart</td>
+          <td>Database user.</td>
+        </tr>
+        <tr>
+          <td>storage.mariadb.password</td>
+          <td>""</td>
+          <td>restart</td>
+          <td>Database password.</td>
+        </tr>
+        <tr>
+          <td>storage.mariadb.parameters</td>
+          <td>""</td>
+          <td>restart</td>
+          <td>Extra JDBC parameters (`key=value&key=value`).</td>
+        </tr>
+        <tr>
+          <td>storage.backups-keep</td>
+          <td>5</td>
+          <td>restart</td>
+          <td>SQLite: backups kept from before schema updates.</td>
+        </tr>
+        <tr>
+          <td>storage.daily-backup</td>
+          <td>true</td>
+          <td>restart</td>
+          <td>SQLite: a daily backup after the cleanup job, the last seven kept.</td>
+        </tr>
+        <tr>
+          <td>retention.closed-event-offers</td>
+          <td>"60d"</td>
+          <td>reload</td>
+          <td>Unbought offers of closed events.</td>
+        </tr>
+        <tr>
+          <td>retention.delivered</td>
+          <td>"90d"</td>
+          <td>reload</td>
+          <td>Delivered or cancelled rewards.</td>
+        </tr>
+        <tr>
+          <td>retention.audit</td>
+          <td>"365d"</td>
+          <td>reload</td>
+          <td>Audit records.</td>
+        </tr>
+        <tr>
+          <td>retention.purchases</td>
+          <td>"0"</td>
+          <td>reload</td>
+          <td>Completed purchases; `0` keeps them forever.</td>
+        </tr>
+        <tr>
+          <td>retention.journal-replayed</td>
+          <td>"90d"</td>
+          <td>reload</td>
+          <td>Replayed outcome journal files.</td>
+        </tr>
+        <tr>
+          <td>economy.vault.expected-provider</td>
+          <td>""</td>
+          <td>reload</td>
+          <td>**Required.** The one plugin allowed to own the Vault economy.</td>
+        </tr>
+        <tr>
+          <td>event.default-duration</td>
+          <td>"3d"</td>
+          <td>reload</td>
+          <td>Length of `event start` without a duration.</td>
+        </tr>
+        <tr>
+          <td>event.default-offers-per-player</td>
+          <td>6</td>
+          <td>reload</td>
+          <td>Hidden cards per player, at most the number of card slots.</td>
+        </tr>
+        <tr>
+          <td>event.late-start</td>
+          <td>open-late</td>
+          <td>reload</td>
+          <td>A scheduled start missed while the server was down: `open-late` or `skip`.</td>
+        </tr>
+        <tr>
+          <td>event.late-start-grace</td>
+          <td>"2m"</td>
+          <td>reload</td>
+          <td>For `skip`: how late still counts as on time.</td>
+        </tr>
+        <tr>
+          <td>event.announce.open</td>
+          <td>true</td>
+          <td>reload</td>
+          <td>Announce an opening (chat, title, sound).</td>
+        </tr>
+        <tr>
+          <td>event.announce.close</td>
+          <td>true</td>
+          <td>reload</td>
+          <td>Announce a closing and the next opening.</td>
+        </tr>
+        <tr>
+          <td>event.announce.resume</td>
+          <td>false</td>
+          <td>reload</td>
+          <td>Announce again an event still running after a restart.</td>
+        </tr>
+        <tr>
+          <td>event.announce.missed-close</td>
+          <td>false</td>
+          <td>reload</td>
+          <td>Announce an event that ended while the server was down.</td>
+        </tr>
+        <tr>
+          <td>event.join-reminder.enabled</td>
+          <td>true</td>
+          <td>reload</td>
+          <td>Remind players who join during an event.</td>
+        </tr>
+        <tr>
+          <td>event.join-reminder.delay</td>
+          <td>"3s"</td>
+          <td>reload</td>
+          <td>Delay before that reminder.</td>
+        </tr>
+        <tr>
+          <td>event.warnings</td>
+          <td>["1d", "1h", "10m", "1m"]</td>
+          <td>reload</td>
+          <td>Warnings before closing; each at most once per event.</td>
+        </tr>
+        <tr>
+          <td>event.warning-title-at-or-below</td>
+          <td>"10m"</td>
+          <td>reload</td>
+          <td>Warnings at or below this also show a title and play a sound.</td>
+        </tr>
+        <tr>
+          <td>event.boss-bar.enabled</td>
+          <td>true</td>
+          <td>reload</td>
+          <td>The closing countdown boss bar.</td>
+        </tr>
+        <tr>
+          <td>event.boss-bar.show-at-or-below</td>
+          <td>"1h"</td>
+          <td>reload</td>
+          <td>When the boss bar appears.</td>
+        </tr>
+        <tr>
+          <td>event.boss-bar.color</td>
+          <td>PURPLE</td>
+          <td>reload</td>
+          <td>PINK, BLUE, RED, GREEN, YELLOW, PURPLE or WHITE.</td>
+        </tr>
+        <tr>
+          <td>event.boss-bar.style</td>
+          <td>PROGRESS</td>
+          <td>reload</td>
+          <td>PROGRESS, NOTCHED_6, NOTCHED_10, NOTCHED_12 or NOTCHED_20.</td>
+        </tr>
+        <tr>
+          <td>schedules.\<id>.enabled</td>
+          <td>false</td>
+          <td>reload</td>
+          <td>Turns the schedule on; the bundled examples ship off.</td>
+        </tr>
+        <tr>
+          <td>schedules.\<id>.type</td>
+          <td>—</td>
+          <td>reload</td>
+          <td>`weekly` or `once`.</td>
+        </tr>
+        <tr>
+          <td>schedules.\<id>.days</td>
+          <td>—</td>
+          <td>reload</td>
+          <td>Weekly: MONDAY to SUNDAY; empty means every day.</td>
+        </tr>
+        <tr>
+          <td>schedules.\<id>.time</td>
+          <td>—</td>
+          <td>reload</td>
+          <td>Weekly: local start time, such as `"20:00"`.</td>
+        </tr>
+        <tr>
+          <td>schedules.\<id>.at</td>
+          <td>—</td>
+          <td>reload</td>
+          <td>Once: local start date and time, such as `"2026-10-31T20:00"`.</td>
+        </tr>
+        <tr>
+          <td>schedules.\<id>.duration</td>
+          <td>—</td>
+          <td>reload</td>
+          <td>How long the market stays open (weekly: up to 7 days; once: up to 30 days).</td>
+        </tr>
+        <tr>
+          <td>schedules.\<id>.offers-per-player</td>
+          <td>event default</td>
+          <td>reload</td>
+          <td>Optional card count for this schedule.</td>
+        </tr>
+        <tr>
+          <td>purchase.inventory-full</td>
+          <td>mailbox</td>
+          <td>reload</td>
+          <td>`mailbox`: overflow goes to the mailbox; `refuse`: no purchase with a full inventory.</td>
+        </tr>
+        <tr>
+          <td>purchase.min-time-left</td>
+          <td>"5s"</td>
+          <td>reload</td>
+          <td>No confirming when less than this is left before closing.</td>
+        </tr>
+        <tr>
+          <td>purchase.reservation-timeout</td>
+          <td>"5s"</td>
+          <td>reload</td>
+          <td>Longest wait for the purchase record.</td>
+        </tr>
+        <tr>
+          <td>commands.aliases</td>
+          <td>[ws, wshop]</td>
+          <td>restart</td>
+          <td>Extra names for `/wanderershop`; they never override other plugins' commands.</td>
+        </tr>
+        <tr>
+          <td>commands.player-name-pattern</td>
+          <td>"^[A-Za-z0-9\_]\{3,16\}\$"</td>
+          <td>reload</td>
+          <td>Names allowed in `{player}` command rewards. For Floodgate, for example `"^[.*]?[A-Za-z0-9_]{1,16}$"`.</td>
+        </tr>
+        <tr>
+          <td>mailbox.claim-batch</td>
+          <td>20</td>
+          <td>reload</td>
+          <td>Rewards per claim.</td>
+        </tr>
+        <tr>
+          <td>mailbox.claim-cooldown</td>
+          <td>"2s"</td>
+          <td>reload</td>
+          <td>Time between two claims of one player.</td>
+        </tr>
+        <tr>
+          <td>mailbox.notify-on-join</td>
+          <td>true</td>
+          <td>reload</td>
+          <td>Tell players with waiting rewards when they join.</td>
+        </tr>
+        <tr>
+          <td>providers.ready-timeout</td>
+          <td>"60s"</td>
+          <td>reload</td>
+          <td>How long custom item plugins may take to load at startup.</td>
+        </tr>
+        <tr>
+          <td>providers.reload-timeout</td>
+          <td>"30s"</td>
+          <td>reload</td>
+          <td>How long a custom item plugin's reload may take.</td>
+        </tr>
+        <tr>
+          <td>license.key</td>
+          <td>""</td>
+          <td>restart</td>
+          <td>Your license key; the `WANDERERSHOP_LICENSE` environment variable wins over it.</td>
+        </tr>
+        <tr>
+          <td>gui.block-creative</td>
+          <td>true</td>
+          <td>reload</td>
+          <td>The market does not open in creative mode.</td>
+        </tr>
+        <tr>
+          <td>gui.open-cooldown</td>
+          <td>"500ms"</td>
+          <td>reload</td>
+          <td>Time between two opens of one player.</td>
+        </tr>
+        <tr>
+          <td>gui.click-throttle</td>
+          <td>"150ms"</td>
+          <td>reload</td>
+          <td>Time between menu clicks.</td>
+        </tr>
+        <tr>
+          <td>gui.confirm-timeout</td>
+          <td>"30s"</td>
+          <td>reload</td>
+          <td>The confirm menu closes after this.</td>
+        </tr>
+        <tr>
+          <td>gui.reveal-min</td>
+          <td>"400ms"</td>
+          <td>reload</td>
+          <td>Shortest card flip.</td>
+        </tr>
+        <tr>
+          <td>gui.show-rarity-when-hidden</td>
+          <td>true</td>
+          <td>reload</td>
+          <td>Hidden cards show their rarity color and name.</td>
+        </tr>
+        <tr>
+          <td>gui.market.rows</td>
+          <td>5</td>
+          <td>reload</td>
+          <td>Market menu rows.</td>
+        </tr>
+        <tr>
+          <td>gui.market.offer-slots</td>
+          <td>[11, 13, 15, 29, 31, 33]</td>
+          <td>reload</td>
+          <td>Card slots, in card order; their number is the most offers a player can get.</td>
+        </tr>
+        <tr>
+          <td>gui.market.timer-slot</td>
+          <td>4</td>
+          <td>reload</td>
+          <td>Countdown slot.</td>
+        </tr>
+        <tr>
+          <td>gui.market.mailbox-slot</td>
+          <td>40</td>
+          <td>reload</td>
+          <td>Mailbox button slot.</td>
+        </tr>
+        <tr>
+          <td>gui.market.close-slot</td>
+          <td>44</td>
+          <td>reload</td>
+          <td>Close button slot.</td>
+        </tr>
+        <tr>
+          <td>gui.market.inner.slots</td>
+          <td>["10-16", "19-25", "28-34"]</td>
+          <td>reload</td>
+          <td>Inner fill slots.</td>
+        </tr>
+        <tr>
+          <td>gui.market.\{frame, inner, timer, mailbox, close, unavailable-icon, under-review-icon\}</td>
+          <td>see the file</td>
+          <td>reload</td>
+          <td>Market icons: `material` and `item-model` (`""` means none).</td>
+        </tr>
+        <tr>
+          <td>gui.confirm.rows</td>
+          <td>3</td>
+          <td>reload</td>
+          <td>Confirm menu rows.</td>
+        </tr>
+        <tr>
+          <td>gui.confirm.info-slot</td>
+          <td>4</td>
+          <td>reload</td>
+          <td>Item info slot.</td>
+        </tr>
+        <tr>
+          <td>gui.confirm.preview-slot</td>
+          <td>13</td>
+          <td>reload</td>
+          <td>Preview slot.</td>
+        </tr>
+        <tr>
+          <td>gui.confirm.confirm-slots</td>
+          <td>[10, 11, 12]</td>
+          <td>reload</td>
+          <td>Confirm button slots.</td>
+        </tr>
+        <tr>
+          <td>gui.confirm.cancel-slots</td>
+          <td>[14, 15, 16]</td>
+          <td>reload</td>
+          <td>Cancel button slots.</td>
+        </tr>
+        <tr>
+          <td>gui.confirm.warning-slot</td>
+          <td>22</td>
+          <td>reload</td>
+          <td>The contents list and the mailbox warning.</td>
+        </tr>
+        <tr>
+          <td>gui.confirm.\{frame, confirm-button, disabled-button, processing-button, failed-button, cancel-button, info, warning\}</td>
+          <td>see the file</td>
+          <td>reload</td>
+          <td>Confirm menu icons.</td>
+        </tr>
+        <tr>
+          <td>sounds.\{menu-open, card-flip, confirm-open, purchase-success, error, in-doubt, event-open, event-close, warning, mailbox-claim\}</td>
+          <td>see the file</td>
+          <td>reload</td>
+          <td>`"key volume pitch"`; `""` is silent.</td>
+        </tr>
+      </tbody>
+    </table>
   </Tab>
 </Tabs>
 
@@ -472,6 +804,7 @@ icon:
 <CardGroup cols="4">
   <Card title="BuiltByBit" icon="external-link" href="https://builtbybit.com/resources/shopguiplus-ui-itemsadder-oraxen.27693/" cta="Buy Now">
   </Card>
+
   <Card title="Polymart" icon="external-link" href="https://polymart.org/resource/cubeshop-shopgui-ui.3717" cta="Buy Now">
   </Card>
 </CardGroup>
