@@ -1,0 +1,33 @@
+---
+title: "License"
+description: "A traveling merchant with hidden offers for every player."
+icon:
+  name: "bookmark"
+  style: "regular"
+  library: "lucide"
+---
+
+Your purchase comes with a license key, `WS-XXXX-XXXX-XXXX-XXXX`. WandererShop checks it once, at startup.
+
+- Put the key into `license.key`, or into the `WANDERERSHOP_LICENSE` environment variable.
+- **The first start binds the key to your** `server-id`**.** Choose it before that start and keep it. To move to another server, ask the seller to release the key.
+- If the license server cannot be reached, the last confirmed license keeps working for up to seven days.
+- Only the key, the `server-id`, the plugin version and the server port are sent. No player data.
+- `/ws admin license` shows who it is licensed to and when it ends. You can also check a key at [ronix-plugins.vercel.app](http://ronix-plugins.vercel.app).
+
+| **The console says** | **Do this** |
+| --- | --- |
+| no license key | Set `license.key` and restart. |
+| unknown license key | Copy the key again, exactly. |
+| license is bound to another server-id | Use the `server-id` you started with first, or ask the seller to release the key. |
+| license expired, license revoked | Contact the seller. |
+| server unreachable | Allow outbound HTTPS to [ronix-plugins.vercel.app](http://ronix-plugins.vercel.app) and restart. |
+
+### <Icon icon="store" size="23" />  Store Links
+
+<CardGroup cols="4">
+  <Card title="BuiltByBit" icon="external-link" href="https://builtbybit.com/resources/shopguiplus-ui-itemsadder-oraxen.27693/" cta="Buy Now">
+  </Card>
+  <Card title="Polymart" icon="external-link" href="https://polymart.org/resource/cubeshop-shopgui-ui.3717" cta="Buy Now">
+  </Card>
+</CardGroup>

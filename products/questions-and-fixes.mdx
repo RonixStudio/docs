@@ -1,0 +1,55 @@
+---
+title: "Questions & Fixes"
+description: "A traveling merchant with hidden offers for every player."
+icon:
+  name: "circle-question-mark"
+  style: "regular"
+  library: "lucide"
+---
+
+<AccordionGroup>
+  <Accordion title='**Why cards say "Currently unavailable" ?**'>
+    The card's currency or item provider is not ready. `/ws admin status` names the reason; for Vault it is almost always `expected-provider` (see Economy setup). Nobody is charged while a card is unavailable.
+  </Accordion>
+
+  <Accordion title="**I changed pool.yml but the market did not change.**">
+    An open event keeps the pool it opened with. The change applies from the next event; to apply it now, stop the event, `reload` and start a new one.
+  </Accordion>
+
+  <Accordion title="**A player's inventory was full.**">
+    The purchase went through and the rest is in the mailbox: `/ws mail`. With `purchase.inventory-full: refuse`, the purchase would have been turned down before payment instead.
+  </Accordion>
+
+  <Accordion title="**The server crashed during a purchase.**">
+    Nobody is charged twice. If the outcome is unknown, the purchase waits in `/ws admin reconcile list`, the card shows "Under review", and staff are alerted.
+  </Accordion>
+
+  <Accordion title="**A command reward did not run.**">
+    The delivery is marked `FAILED` and staff get the command and the error. Fix the command, give the reward by hand, and settle it with `reconcile delivery`. Use `test give` before events to catch this early.
+  </Accordion>
+
+  <Accordion title="**Floodgate players and command rewards.**">
+    Floodgate names can carry a prefix, such as a dot. For command rewards that use `{player}`, widen `commands.player-name-pattern`, for example `"^[.*]?[A-Za-z0-9_]{1,16}$"`. Rewards that use `{uuid}` need nothing.
+  </Accordion>
+
+  <Accordion title="**Can two servers share one database?**">
+    No. Give every server its own SQLite file or its own MariaDB/MySQL database.
+  </Accordion>
+
+  <Accordion title="**Can I reload the plugin with /reload or PlugMan?**">
+    No. Use `/ws admin reload` for the files, and restart the server for a new jar.
+  </Accordion>
+
+  <Accordion title="**What should I send when I ask for help?**">
+    The output of `wanderershop admin debug`. It lists the versions, the economy owner, the database and every integration.
+  </Accordion>
+</AccordionGroup>
+
+### <Icon icon="store" size="23" />  Store Links
+
+<CardGroup cols="4">
+  <Card title="BuiltByBit" icon="external-link" href="https://builtbybit.com/resources/shopguiplus-ui-itemsadder-oraxen.27693/" cta="Buy Now">
+  </Card>
+  <Card title="Polymart" icon="external-link" href="https://polymart.org/resource/cubeshop-shopgui-ui.3717" cta="Buy Now">
+  </Card>
+</CardGroup>

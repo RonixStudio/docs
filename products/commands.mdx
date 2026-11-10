@@ -1,0 +1,238 @@
+---
+title: "Commands"
+description: "A traveling merchant with hidden offers for every player."
+icon:
+  name: "code"
+  style: "regular"
+  library: "lucide"
+---
+
+`/wanderershop` also answers to `/ws` and `/wshop` (`commands.aliases`). `/ws help` shows each player the commands they may use; anyone with an admin permission also gets `/ws admin help`. Every command in those lists is clickable: one that only shows something runs, one that changes something goes into the chat box first.
+
+> **For Players:**
+
+| **Command** | **Permission** | **What it does** |
+| --- | --- | --- |
+| /ws | wanderershop.use | Opens the market. |
+| /ws mailbox, /ws mail | wanderershop.mailbox | Collects the rewards waiting in the mailbox. |
+| /ws about | wanderershop.use | Version, developer and website. |
+| /ws help | any of the above | The commands you may use, clickable. |
+
+> **For Staff:**
+
+<table>
+  <colgroup>
+    <col width="227" />
+    <col width="226" />
+    <col width="248" />
+  </colgroup>
+  <thead>
+    <tr>
+      <th>**Command**</th>
+      <th>**Permission**</th>
+      <th>**What it does**</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>/ws admin event start [duration] [offers]</td>
+      <td>wanderershop.admin.event</td>
+      <td>Opens an event now. Without a duration, `event.default-duration`; offers from 1 to the number of card slots.</td>
+    </tr>
+    <tr>
+      <td>/ws admin event stop confirm</td>
+      <td>wanderershop.admin.event</td>
+      <td>Closes the open event.</td>
+    </tr>
+    <tr>
+      <td>/ws admin event extend \<duration></td>
+      <td>wanderershop.admin.event</td>
+      <td>Moves the closing time later.</td>
+    </tr>
+    <tr>
+      <td>/ws admin event shorten \<duration> confirm</td>
+      <td>wanderershop.admin.event</td>
+      <td>Moves the closing time earlier, to at least one minute from now.</td>
+    </tr>
+    <tr>
+      <td>/ws admin event schedule</td>
+      <td>wanderershop.admin.event</td>
+      <td>The next five scheduled openings and any conflicts.</td>
+    </tr>
+  </tbody>
+</table>
+
+> **Setup and diagnostics:**
+
+<table>
+  <colgroup>
+    <col width="227" />
+    <col width="226" />
+    <col width="248" />
+  </colgroup>
+  <thead>
+    <tr>
+      <th>**Command**</th>
+      <th>**Permission**</th>
+      <th>**What it does**</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>/ws admin status</td>
+      <td>wanderershop.admin.status</td>
+      <td>Plugin state, the open event and its counts, every currency and item provider, records awaiting review.</td>
+    </tr>
+    <tr>
+      <td>/ws admin license</td>
+      <td>wanderershop.admin.license</td>
+      <td>Who the plugin is licensed to, the masked key, the bound server, the end date and the time left.</td>
+    </tr>
+    <tr>
+      <td>/ws admin validate</td>
+      <td>wanderershop.admin.reload</td>
+      <td>Checks `config.yml`, `pool.yml` and the language file without applying them.</td>
+    </tr>
+    <tr>
+      <td>/ws admin reload</td>
+      <td>wanderershop.admin.reload</td>
+      <td>Applies the files. `pool.yml` changes apply from the next event.</td>
+    </tr>
+    <tr>
+      <td>/ws admin debug</td>
+      <td>wanderershop.admin.debug</td>
+      <td>Versions, storage, economy registrations and integrations: include it when you ask for support.</td>
+    </tr>
+    <tr>
+      <td>/ws admin help</td>
+      <td>any admin permission</td>
+      <td>The admin commands you may use, by topic.</td>
+    </tr>
+  </tbody>
+</table>
+
+> **Players and offers:**
+
+<table>
+  <colgroup>
+    <col width="227" />
+    <col width="226" />
+    <col width="248" />
+  </colgroup>
+  <thead>
+    <tr>
+      <th>**Command**</th>
+      <th>**Permission**</th>
+      <th>**What it does**</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>/ws admin offers \<player></td>
+      <td>wanderershop.admin.inspect</td>
+      <td>The player's offers in the open event: slot, item, status, price.</td>
+    </tr>
+    <tr>
+      <td>/ws admin preview [player]</td>
+      <td>wanderershop.admin.inspect</td>
+      <td>The set a player would get, without saving anything. With no event, a sample set from the current pool.</td>
+    </tr>
+    <tr>
+      <td>/ws admin odds [samples]</td>
+      <td>wanderershop.admin.inspect</td>
+      <td>Each item's chance to appear and its average discount; 1,000 to 200,000 samples, 20,000 by default.</td>
+    </tr>
+    <tr>
+      <td>/ws admin mailbox \<player></td>
+      <td>wanderershop.admin.inspect</td>
+      <td>The player's undelivered rewards, with the purchase reference and the last error.</td>
+    </tr>
+    <tr>
+      <td>/ws admin reroll \<player> confirm</td>
+      <td>wanderershop.admin.reroll</td>
+      <td>Draws the player's offers again; only for an online player with no purchase in this event.</td>
+    </tr>
+  </tbody>
+</table>
+
+> **Purchases and review:**
+
+<table>
+  <colgroup>
+    <col width="227" />
+    <col width="226" />
+    <col width="248" />
+  </colgroup>
+  <thead>
+    <tr>
+      <th>**Command**</th>
+      <th>**Permission**</th>
+      <th>**What it does**</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>/ws admin reconcile list</td>
+      <td>wanderershop.admin.reconcile</td>
+      <td>Everything awaiting a decision.</td>
+    </tr>
+    <tr>
+      <td>/ws admin purchase \<ref></td>
+      <td>wanderershop.admin.inspect</td>
+      <td>Everything known about one purchase.</td>
+    </tr>
+    <tr>
+      <td>/ws admin purchases \<player></td>
+      <td>wanderershop.admin.inspect</td>
+      <td>The player's recent purchases.</td>
+    </tr>
+    <tr>
+      <td>/ws admin reconcile purchase \<ref> charged | charged-redeliver | not-charged [--note "reason"] confirm</td>
+      <td>wanderershop.admin.reconcile</td>
+      <td>Settles a purchase under review.</td>
+    </tr>
+    <tr>
+      <td>/ws admin reconcile delivery \<ref> delivered | redeliver | cancel [--note "reason"] confirm</td>
+      <td>wanderershop.admin.reconcile</td>
+      <td>Settles a delivery under review.</td>
+    </tr>
+  </tbody>
+</table>
+
+> **Testing:**
+
+<table>
+  <colgroup>
+    <col width="227" />
+    <col width="226" />
+    <col width="248" />
+  </colgroup>
+  <thead>
+    <tr>
+      <th>**Command**</th>
+      <th>**Permission**</th>
+      <th>**What it does**</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>/ws admin test give \<item> [player] [--no-commands] confirm</td>
+      <td>wanderershop.admin.test</td>
+      <td>Gives an item's rewards for free, exactly like a purchase, so you can try command rewards before an event.</td>
+    </tr>
+  </tbody>
+</table>
+
+- **Durations:** `30m`, `2h`, `1d12h`, `3d`; from one minute to 30 days.
+- **Confirmation:** a command that changes something waits for `confirm`. Without it, it prints the full command to confirm.
+- `<player>`**:** an online name, a UUID, or the last name of a player who has opened the market on this server.
+- **Console:** every admin command also runs from the console, without the slash.
+
+### <Icon icon="store" size="23" />  Store Links
+
+<CardGroup cols="4">
+  <Card title="BuiltByBit" icon="external-link" href="https://builtbybit.com/resources/shopguiplus-ui-itemsadder-oraxen.27693/" cta="Buy Now">
+  </Card>
+  <Card title="Polymart" icon="external-link" href="https://polymart.org/resource/cubeshop-shopgui-ui.3717" cta="Buy Now">
+  </Card>
+</CardGroup>

@@ -1,0 +1,45 @@
+---
+title: "Permissions"
+description: "A traveling merchant with hidden offers for every player."
+icon:
+  name: "key-round"
+  style: "regular"
+  library: "lucide"
+---
+
+| **Permission** | **Default** | **Allows** |
+| --- | --- | --- |
+| wanderershop.use | everyone | Opening the market, revealing cards and buying; `/ws about`. |
+| wanderershop.mailbox | everyone | Claiming the mailbox. |
+| wanderershop.announce | everyone | Seeing event announcements, warnings, the join reminder and the boss bar. |
+| wanderershop.admin | op | Every admin permission below. |
+| wanderershop.admin.status | op | status |
+| wanderershop.admin.event | op | event start, stop, extend, shorten, schedule |
+| wanderershop.admin.inspect | op | offers, preview, odds, mailbox, purchase, purchases |
+| wanderershop.admin.reroll | op | reroll |
+| wanderershop.admin.reconcile | op | reconcile |
+| wanderershop.admin.license | op | license |
+| wanderershop.admin.debug | op | debug |
+| wanderershop.admin.reload | op | validate, reload |
+| wanderershop.admin.alerts | op | Live alerts about purchases under review and purchase anomalies, and a reminder on join. |
+| wanderershop.admin.test | op | test give |
+
+### **Offers only some players can draw**
+
+Give an item a `permission` in `pool.yml` and only players with that permission can draw it. The name is yours to choose, so VIP ranks can get offers no one else sees:
+
+```yaml
+master_pack:
+    rarity: epic
+    price: { currency: vault, amount: 30000 }
+    permission: "wanderershop.pool.vip"   # checked when the player's set is made
+```
+
+### <Icon icon="store" size="23" />  Store Links
+
+<CardGroup cols="4">
+  <Card title="BuiltByBit" icon="external-link" href="https://builtbybit.com/resources/shopguiplus-ui-itemsadder-oraxen.27693/" cta="Buy Now">
+  </Card>
+  <Card title="Polymart" icon="external-link" href="https://polymart.org/resource/cubeshop-shopgui-ui.3717" cta="Buy Now">
+  </Card>
+</CardGroup>
