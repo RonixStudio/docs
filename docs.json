@@ -79,16 +79,16 @@
           {
             "group": "WandererShop",
             "pages": [
-              "products/introduction",
-              "products/installation",
-              "products/features",
-              "products/commands",
-              "products/permissions",
-              "products/placeholders",
-              "products/configurations",
-              "products/license",
-              "products/questions-and-fixes",
-              "products/changelogs"
+              "ws/introduction",
+              "ws/installation",
+              "ws/features",
+              "ws/commands",
+              "ws/permissions",
+              "ws/placeholders",
+              "ws/configurations",
+              "ws/license",
+              "ws/questions-and-fixes",
+              "ws/changelogs"
             ]
           }
         ]
