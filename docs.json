@@ -96,7 +96,33 @@
       {
         "dropdown": "Tebex Themes",
         "pages": [
-          "products/vio"
+          "products/vio",
+          {
+            "group": "Astro",
+            "pages": [
+              "astro/introduction",
+              "astro/features",
+              "astro/installation",
+              "astro/questions-and-fixes",
+              "astro/changelogs"
+            ]
+          },
+          {
+            "group": "Prima",
+            "pages": []
+          },
+          {
+            "group": "Wisteria",
+            "pages": []
+          },
+          {
+            "group": "Mossgate",
+            "pages": []
+          },
+          {
+            "group": "Tessera",
+            "pages": []
+          }
         ]
       }
     ]
