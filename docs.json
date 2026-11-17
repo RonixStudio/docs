@@ -103,6 +103,8 @@
               "astro/introduction",
               "astro/features",
               "astro/installation",
+              "astro/tebex-settings",
+              "astro/license",
               "astro/questions-and-fixes",
               "astro/changelogs"
             ]
