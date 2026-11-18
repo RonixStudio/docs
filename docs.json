@@ -75,7 +75,8 @@
       },
       {
         "dropdown": "Plugins",
-        "groups": [
+        "pages": [
+          "introduction-2",
           {
             "group": "WandererShop",
             "pages": [
