@@ -9,28 +9,64 @@ icon:
 
 <Steps>
   <Step title="Step 1">
-    NA
+    In the Tebex panel, go to **Webstore → Appearance** and create a new custom template. Open it in the template editor.
   </Step>
   <Step title="Step 2">
-    NA
+    For every file in `pages/`, open the page with the same name in the editor and replace its contents with the file's contents:
+
+    - `category.html`
+    - `checkout.html`
+    - `cms.page.html`
+    - `index.html`
+    - `layout.html`
+    - `module.communitygoal.html`
+    - `module.featuredpackage.html`
+    - `module.giftcardbalance.html`
+    - `module.goal.html`
+    - `module.payments.html`
+    - `module.serverstatus.html`
+    - `module.textbox.html`
+    - `module.topdonator.html`
+    - `options.html`
+    - `package.html`
+    - `username.html`
   </Step>
   <Step title="Step 3">
-    NA
+    Upload every file in `assets/`, keeping the file names exactly as they are:
+
+    - `bg.png`
+    - `config.twig`
+    - `main.min.css`
+    - `main.min.js`
+    - `modal.basket.twig`
+    - `modal.ip.twig`
+    - `modal.login.twig`
+    - `modal.package.twig`
+    - `modal.wishlist.twig`
+    - `patrons.twig`
+    - `purchase.notifications.twig`
+    - `reviews.twig`
+    - `sale-characters.png`
+    - `search.twig`
+    - `team.twig`
+    - `vote.twig`
+    - `wishlist.button.twig`
+
+    <Note>
+      If your license includes the rank table, also upload `addons/table.addon.twig` as an asset.
+    </Note>
   </Step>
   <Step title="Step 4">
-    NA
+    Choose **Change Schema** in the editor and replace the schema with the contents of `schema.json`.
   </Step>
   <Step title="Step 5">
-    NA
+    The theme ships English (`en_US`), German (`de_DE`), Spanish (`es_US`), Turkish (`tr_TR`), French (`fr_FR`), Portuguese (Brazil) (`pt_BR`), Polish (`pl_PL`) in `translations/`. In the control panel, go to **Webstore → Translations** and, under **Custom Translations**, upload each file your store needs with **Upload Translation** (the language's name comes from the file). Turn on **Enabled** for the languages your customers should get and tick **Default** for your store's main language. Every Ronix theme ships the same files, with the texts of all of them, so the languages you upload keep working if you switch to another Ronix theme; after an update, upload the new version's files, which may hold new texts.
   </Step>
   <Step title="Step 6">
-    NA
+    Save, set the template as your store's active template, and open your store.
   </Step>
   <Step title="Step 7">
-    NA
-  </Step>
-  <Step title="Step 8">
-    NA
+    Open your template's settings under **Webstore → Appearance** and fill in at least your server address, Discord link and colours (see [Settings reference](/astro/tebex-settings)).
   </Step>
 </Steps>
 

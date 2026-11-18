@@ -8,40 +8,40 @@ icon:
 ---
 
 <AccordionGroup>
-  <Accordion title="**NA**">
-    NA
+  <Accordion title="**Server address and player count.**">
+    Minecraft stores enter the server address (`play.example.com`); the player count comes from a public server-status service. FiveM stores enter their full join link (`https://cfx.re/join/abc123`): the button opens it and shows the player count. For Rust and Unturned the button copies the address; no player count is shown. When a count cannot be fetched, the button shows its hover text instead.
   </Accordion>
 
-  <Accordion title="**NA**">
-    NA
+  <Accordion title="**Discord member count.**">
+    Enter your server ID and enable **Server Settings → Widget → Enable Server Widget** in Discord. Without the widget the button still links to your invite.
   </Accordion>
 
-  <Accordion title="**NA**">
-    NA
+  <Accordion title="**Coupons, gift cards and creator codes.**">
+    Coupons, gift cards and creator codes are entered on Tebex Checkout, which opens when the customer checks out; the cart says so. Gift card balances can be checked with the Gift Card module.
   </Accordion>
 
-  <Accordion title="**NA**">
-    NA
+  <Accordion title="**Subscriptions.**">
+    Subscriptions show their price with `/mo`. Tebex does not tell templates the billing period: if your subscriptions are not monthly, change the `/mo` translation.
   </Accordion>
 
-  <Accordion title="**NA**">
-    NA
+  <Accordion title="**Checkout.**">
+    Checkout sends the customer to Tebex Checkout the way Tebex requires (a POST to `/checkout/pay`).
   </Accordion>
 
-  <Accordion title="**NA**">
-    NA
+  <Accordion title="**Translations.**">
+    Every text the theme adds is in its language files, keyed by its English text. An uploaded file changes only the texts it lists; Tebex keeps its own for the rest. A text that depends on a number has as many forms as the language needs: three in Polish (1, 2–4, 5 and more), two in the others.
   </Accordion>
 
-  <Accordion title="**NA**">
-    NA
+  <Accordion title="**Custom CSS.**">
+    From Webstore → Appearance is loaded after the theme's stylesheet, so it can override it.
+
+    - Do not paste the theme's pages into a template that uses another theme's assets: the pages expect this theme's `main.min.css`, `main.min.js` and `.twig` assets.
   </Accordion>
 
-  <Accordion title="**NA**">
-    NA
-  </Accordion>
+  <Accordion title="**Updating from an earlier version.**">
+    Replace every page, asset and the schema with the new files (Installation, steps 2–6). Your settings are kept: Tebex stores them by ID, and the IDs did not change. New settings start at their defaults. If you added a rank table to `category.html`, copy your `{% set rankTable = … %}` line over to the new `category.html`.
 
-  <Accordion title="**NA**">
-    NA
+    See `CHANGELOG.md` for what changed.
   </Accordion>
 </AccordionGroup>
 
