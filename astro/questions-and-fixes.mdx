@@ -1,6 +1,6 @@
 ---
 title: "Questions & Fixes"
-description: "Make your store much more functional with the great features."
+description: "Answers to common questions."
 icon:
   name: "circle-question-mark"
   style: "regular"
@@ -33,15 +33,17 @@ icon:
   </Accordion>
 
   <Accordion title="**Custom CSS.**">
-    From Webstore → Appearance is loaded after the theme's stylesheet, so it can override it.
+    Custom CSS from the **Appearance** page is loaded after the theme's stylesheet, so it can override it.
+  </Accordion>
 
-    - Do not paste the theme's pages into a template that uses another theme's assets: the pages expect this theme's `main.min.css`, `main.min.js` and `.twig` assets.
+  <Accordion title="**Other themes' assets.**">
+    Do not paste the theme's pages into a template that uses another theme's assets: the pages expect this theme's `main.min.css`, `main.min.js` and `.twig` assets.
   </Accordion>
 
   <Accordion title="**Updating from an earlier version.**">
     Replace every page, asset and the schema with the new files (Installation, steps 2–6). Your settings are kept: Tebex stores them by ID, and the IDs did not change. New settings start at their defaults. If you added a rank table to `category.html`, copy your `{% set rankTable = … %}` line over to the new `category.html`.
 
-    See `CHANGELOG.md` for what changed.
+    See [changelogs](/astro/changelogs) for what changed.
   </Accordion>
 </AccordionGroup>
 
